@@ -22,122 +22,70 @@ class Home extends StatelessWidget {
     );
   }
 
-  Widget _buildSettingsList() {
+  _buildSettingsList() {
     return ListView(
       children: <Widget>[
-        _buildUserNameRow(),
-        _buildNotificationRow(),
-        _buildApplicationConnectionRow(),
-        _buildVersionNumberRow(),
+        _buildSettingsListItem(
+          'ユーザ名',
+          rightSideWidget: GestureDetector(
+            child: Icon(
+              Icons.navigate_next,
+            ),
+          ),
+        ),
+        _buildSettingsListItem(
+          'お知らせ',
+          rightSideWidget: _buildNotificationButton(
+            onPressed: () {},
+          ),
+        ),
+        _buildSettingsListItem(
+          'アプリ連携',
+          rightSideWidget: Switch(
+            value: false,
+            onChanged: (currentValue) {},
+          ),
+        ),
+        _buildSettingsListItem(
+          'バージョン',
+          rightSideWidget: Text(
+            '1.0.0',
+            style: _InformationTextStyle,
+          ),
+        ),
       ],
     );
   }
 
-  Widget _buildVersionNumberRow() {
-    return Container(
-      height: 70.0,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Text(
-            'バージョン',
-            style: _LabelTextStyle,
-          ),
-          Text(
-            '1.0.0',
-            style: _InformationTextStyle,
-          ),
-        ],
-      ),
-      padding: EdgeInsets.symmetric(horizontal: 12.0),
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            width: 1.0,
-            color: _BorderColor,
-          ),
+  Widget _buildNotificationButton({VoidCallback onPressed}) {
+    return RawMaterialButton(
+      child: Text(
+        'もっと見る',
+        style: TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.w700,
         ),
       ),
+      fillColor: Colors.blue,
+      onPressed: onPressed,
     );
   }
 
-  Widget _buildApplicationConnectionRow() {
-    return Container(
-      height: 70.0,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Text(
-            'アプリ連携',
-            style: _LabelTextStyle,
-          ),
-          Switch(
-            value: false,
-            onChanged: (currentValue) {},
-          ),
-        ],
-      ),
-      padding: EdgeInsets.symmetric(horizontal: 12.0),
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            width: 1.0,
-            color: _BorderColor,
-          ),
-        ),
-      ),
+  Widget _buildSettingsListItem(String label, {Widget rightSideWidget}) {
+    final children = List<Widget>();
+    children.add(
+      Text(label, style: _LabelTextStyle),
     );
-  }
 
-  Widget _buildNotificationRow() {
+    if (rightSideWidget != null) {
+      children.add(rightSideWidget);
+    }
+
     return Container(
       height: 70.0,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Text(
-            'お知らせ',
-            style: _LabelTextStyle,
-          ),
-          RawMaterialButton(
-            child: Text(
-              'もっと見る',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            fillColor: Colors.blue,
-            onPressed: () {},
-          ),
-        ],
-      ),
-      padding: EdgeInsets.symmetric(horizontal: 12.0),
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            width: 1.0,
-            color: _BorderColor,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildUserNameRow() {
-    return Container(
-      height: 70.0,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Text(
-            'ユーザ名',
-            style: _LabelTextStyle,
-          ),
-          GestureDetector(
-            child: Icon(Icons.navigate_next),
-          ),
-        ],
+        children: children,
       ),
       padding: EdgeInsets.symmetric(horizontal: 12.0),
       decoration: BoxDecoration(
